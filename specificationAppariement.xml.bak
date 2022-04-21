@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationRecordlinkage>
+	<databaseParameter>
+		<serverParameter server="localhost" port="5433"/>
+		<userParameter user="inserjeunes" password="inserjeunes"/>
+		<baseParameter database="inserjeunes" schema="annee_2017_2018"/>
+	</databaseParameter>
+	<inputTable tableName="IJ_APPRENTI_CHAMP_SORTANT" primaryKeyName="ID_INE_RNIE">
+		<column name="NOM_1_R"/>
+		<column name="NOM_2_R"/>
+		<column name="PRENOM_1_R"/>		
+		<column name="PRENOM_2_R"/>
+		<column name="PRENOM_3_R"/>
+		<column name="JOUR_NAISSANCE"/>
+		<column name="MOIS_NAISSANCE"/>
+		<column name="ANNEE_NAISSANCE"/>
+		<column name="SEXE"/>
+		<column name="ID_COG_COMMUNE_NAISSANCE"/>
+		<column name="ID_COG_DEP_NAISSANCE"/>
+		<column name="LIBELLE_COMMUNE_NAISSANCE"/>	
+	</inputTable>
+	<inputTable tableName="IJ_SALARIE_TEMPORAIRE" primaryKeyName="ID_SISMMO">
+		<column name="NOM_1_R"/>
+		<column name="NOM_2_R"/>
+		<column name="PRENOM_1_R"/>		
+		<column name="PRENOM_2_R"/>
+		<column name="PRENOM_3_R"/>
+		<column name="JOUR_NAISSANCE"/>
+		<column name="MOIS_NAISSANCE"/>
+		<column name="ANNEE_NAISSANCE"/>
+		<column name="SEXE"/>
+		<column name="ID_COG_COMMUNE_NAISSANCE"/>
+		<column name="ID_COG_DEP_NAISSANCE"/>
+		<column name="LIBELLE_COMMUNE_NAISSANCE"/>	
+	</inputTable>
+	<outputTables exactRecordLinkageTableName="RESULTAT_APPARIEMENT" fuzzyRecordLinkageTableName="PAIRES_FINALES" />
+	<classificationEvaluationTable tableName="PAIRES_ANNOTATIONS" positive="OK" negative="KO" incertain="?" annotationColumnName="STATUT_ANNOTATION"/>
+	<logParsedSpecification  verbosity="no"/>
+	<exactRecordLinkage>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="NOM_1_R"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="NOM_1_R"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="PRENOM_1_R"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="PRENOM_1_R"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="SEXE"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="SEXE"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ANNEE_NAISSANCE"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ANNEE_NAISSANCE"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="MOIS_NAISSANCE"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="MOIS_NAISSANCE"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="JOUR_NAISSANCE"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="JOUR_NAISSANCE"/>
+		</condition>
+		<condition>
+			<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ID_COG_COMMUNE_NAISSANCE"/>
+			<operator type="equals"/>
+			<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ID_COG_COMMUNE_NAISSANCE"/>
+		</condition>
+	</exactRecordLinkage>
+	<fuzzyRecordLinkage>
+		<indexing>
+			<pairCreation>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="NOM_1_R"/>
+					<operator type="levenshteinDistance" maximumDistance="3"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="NOM_1_R"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="PRENOM_1_R"/>
+					<operator type="levenshteinDistance" maximumDistance="3"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="PRENOM_1_R"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ANNEE_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ANNEE_NAISSANCE"/>
+				</condition>		
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ID_COG_DEP_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ID_COG_DEP_NAISSANCE"/>
+				</condition>	
+			</pairCreation>
+			<pairCreation>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ANNEE_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ANNEE_NAISSANCE"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="MOIS_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="MOIS_NAISSANCE"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="JOUR_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="JOUR_NAISSANCE"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="ID_COG_DEP_NAISSANCE"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="ID_COG_DEP_NAISSANCE"/>
+				</condition>	
+			</pairCreation>
+			<pairCreation>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="NOM_1_R"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="NOM_1_R"/>
+				</condition>
+				<condition>
+					<filter tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="PRENOM_1_R"/>
+					<operator type="equals"/>
+					<filter tableName="IJ_SALARIE_TEMPORAIRE" columnName="PRENOM_1_R"/>
+				</condition>
+			</pairCreation>
+		</indexing>
+		<recordPairComparison>
+			<similarity similarityName="similarite_nom"  similarityMethod="jaroWincklerSimilarityNames">
+				<input tableName="IJ_APPRENTI_CHAMP_SORTANT" name1="NOM_1_R" name2="NOM_2_R"/>
+				<input tableName="IJ_SALARIE_TEMPORAIRE" name1="NOM_1_R" name2="NOM_2_R"/>
+			</similarity>
+			<similarity similarityName="similarite_prenom"  similarityMethod="jaroWincklerSimilarityNames">
+				<input tableName="IJ_APPRENTI_CHAMP_SORTANT" name1="PRENOM_1_R" name2="PRENOM_2_R"  name3="PRENOM_3_R"/>
+				<input tableName="IJ_SALARIE_TEMPORAIRE" name1="PRENOM_1_R" name2="PRENOM_2_R"  name3="PRENOM_3_R"/>
+			</similarity>
+			<similarity similarityName="similarite_communeNaissance" similarityMethod="levenshteinSimilarityBirthPlace">
+				<input tableName="IJ_APPRENTI_CHAMP_SORTANT" BirthPlaceName="LIBELLE_COMMUNE_NAISSANCE"/>
+				<input tableName="IJ_SALARIE_TEMPORAIRE" BirthPlaceName="LIBELLE_COMMUNE_NAISSANCE"/>
+			</similarity>
+			<similarity similarityName="similarite_dateNaissance" similarityMethod="similarityBirthDate">
+				<input tableName="IJ_APPRENTI_CHAMP_SORTANT" day="JOUR_NAISSANCE" month="MOIS_NAISSANCE" year="ANNEE_NAISSANCE"/>
+				<input tableName="IJ_SALARIE_TEMPORAIRE" day="JOUR_NAISSANCE" month="MOIS_NAISSANCE" year="ANNEE_NAISSANCE"/>
+			</similarity>
+			<similarity similarityName="similarite_sexe" similarityMethod="binary">
+				<input tableName="IJ_APPRENTI_CHAMP_SORTANT" columnName="SEXE"/>
+				<input tableName="IJ_SALARIE_TEMPORAIRE" columnName="SEXE"/>
+			</similarity>	
+		</recordPairComparison>
+		<classification methodName="handScore" thresholdValue="1.1">
+			<similarityUsage wheight="0.3" similarityName="similarite_nom" add="0.2" power="3"/>
+			<similarityUsage wheight="0.25" similarityName="similarite_dateNaissance"  power="1"/>
+			<similarityUsage wheight="0.2" similarityName="similarite_prenom" add="0.2"  power="3"/>
+			<similarityUsage wheight="0.1" similarityName="similarite_communeNaissance" />
+			<similarityUsage wheight="0.05" similarityName="similarite_sexe"  power="1"/>
+			<!-- 0.3*(similarite_nom+0.2)**3 + 0.25*similarite_dateNaissance + 0.2*(similarite_prenom+0.2)**3 +0.1*similarite_communeNaissance +0.05*similarite_sexe -->  
+		</classification>
+		<classification methodName="randomForest" TreeNumberValue="1000">
+			<similarityUsage similarityName="similarite_nom" />
+			<similarityUsage similarityName="similarite_dateNaissance" />
+			<similarityUsage similarityName="similarite_prenom" />
+			<similarityUsage similarityName="similarite_communeNaissance" />
+			<similarityUsage similarityName="similarite_sexe" />
+		</classification>
+		<classification methodName="SVM" kernel="linear" C="0.1">
+			<similarityUsage similarityName="similarite_nom" />
+			<similarityUsage similarityName="similarite_dateNaissance" />
+			<similarityUsage similarityName="similarite_prenom" />
+			<similarityUsage similarityName="similarite_communeNaissance" />
+			<similarityUsage similarityName="similarite_sexe" />
+		</classification>
+	</fuzzyRecordLinkage>
+</specificationRecordlinkage>
